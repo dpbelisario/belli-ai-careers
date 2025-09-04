@@ -48,7 +48,7 @@ export default function CareersPage() {
       formData.previousRole.trim() !== "" &&
       formData.resume !== null
 
-    // 入力チェックが通らない場合
+    // Form validation check
     if (!isFormValid) {
       setErrorMessage("Please fill in all fields")
       setShowError(true)
@@ -57,7 +57,7 @@ export default function CareersPage() {
       return
     }
 
-    // フォームデータを設定
+    // Set form data payload
     const payload = {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -68,31 +68,31 @@ export default function CareersPage() {
       previousRole: formData.previousRole,
     }
 
-    // Google Apps Scriptに送信するためにURLSearchParamsでデータを送信形式に変換
-    const body = new URLSearchParams(payload as any)
-
-    const GAS_URL =
-      "https://script.google.com/macros/s/AKfycbwFGTvG3WbHXNG-zT41t4-edNX9Vvlf3rOOfVbrc9-m9AJU6wdLzYg9BheFXzfhmKUKXQ/exec"
+    // Submit to recruitment-management API
+    const RECRUITMENT_API_URL = "https://recruitment-management-ecru.vercel.app/api/applications"
 
     try {
-      // フォームデータをGoogle Apps Scriptに送信
-      const res = await fetch(GAS_URL, {
+      // Send form data to recruitment-management API
+      const res = await fetch(RECRUITMENT_API_URL, {
         method: "POST",
-        body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       })
 
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`)
       }
 
-      // レスポンスをJSONとして取得
+      // Get response as JSON
       const json = await res.json()
-      console.log(json) // レスポンスの確認
+      console.log(json) // Log response for debugging
 
-      // レスポンスが成功した場合
-      const ok = !!json?.ok
+      // Check if response is successful
+      const success = !!json?.success
 
-      if (ok) {
+      if (success) {
         setFormData({
           firstName: "",
           lastName: "",
@@ -104,19 +104,19 @@ export default function CareersPage() {
         })
         setSelectedPosition("")
 
-        // ポップアップを表示（成功）
+        // Show success popup
         setShowSuccess(true)
         setShowError(false)
-        setTimeout(() => setShowSuccess(false), 3000) // 3秒後にポップアップを消す
+        setTimeout(() => setShowSuccess(false), 3000) // Hide popup after 3 seconds
       } else {
-        setErrorMessage("Transform is failure")
+        setErrorMessage("Failed to submit application. Please try again.")
         setShowError(true)
         setShowSuccess(false)
         setTimeout(() => setShowError(false), 3000)
       }
     } catch (error) {
       console.error("Error submitting the form:", error)
-      setErrorMessage("Transform is failure")
+      setErrorMessage("Failed to submit application. Please try again.")
       setShowError(true)
       setShowSuccess(false)
       setTimeout(() => setShowError(false), 3000)
