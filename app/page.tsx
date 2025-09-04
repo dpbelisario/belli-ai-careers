@@ -35,6 +35,15 @@ export default function CareersPage() {
     })
   }
 
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = error => reject(error)
+    })
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -57,15 +66,30 @@ export default function CareersPage() {
       return
     }
 
-    // Set form data payload
-    const payload = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      selectedPosition,
-      majorGraduation: formData.majorGraduation,
-      growthMetrics: formData.growthMetrics,
-      previousRole: formData.previousRole,
+    try {
+      // Convert PDF to base64
+      const base64Resume = await convertFileToBase64(formData.resume!)
+      
+      // Set form data payload
+      const payload = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        selectedPosition,
+        majorGraduation: formData.majorGraduation,
+        growthMetrics: formData.growthMetrics,
+        previousRole: formData.previousRole,
+        resumeBase64: base64Resume,
+        resumeFileName: formData.resume!.name,
+        resumeSize: formData.resume!.size,
+      }
+    } catch (error) {
+      console.error("Error converting PDF to base64:", error)
+      setErrorMessage("Failed to process resume file. Please try again.")
+      setShowError(true)
+      setShowSuccess(false)
+      setTimeout(() => setShowError(false), 3000)
+      return
     }
 
     // Submit to recruitment-management API
