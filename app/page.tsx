@@ -210,10 +210,8 @@ export default function CareersPage() {
                       <SelectValue placeholder="Select a position" className="placeholder:text-muted-foreground/60" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Senior Backend Engineer">Senior Backend Engineer</SelectItem>
-                      <SelectItem value="Senior Frontend Engineer">Senior Frontend Engineer</SelectItem>
-                      <SelectItem value="Junior Backend Engineer">Junior Backend Engineer</SelectItem>
-                      <SelectItem value="Junior Frontend Engineer">Junior Frontend Engineer</SelectItem>
+                      <SelectItem value="Backend Engineer">Backend Engineer</SelectItem>
+                      <SelectItem value="Frontend Engineer">Frontend Engineer</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -288,10 +286,10 @@ export default function CareersPage() {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
-                  <CardTitle className="text-xl">Senior Backend Engineer</CardTitle>
+                  <CardTitle className="text-xl">Backend Engineer</CardTitle>
                   <Badge variant="secondary">Full-time</Badge>
                 </div>
-                <CardDescription>Build scalable backend systems for air cargo operations</CardDescription>
+                <CardDescription>Build scalable backend systems and APIs for air cargo operations</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
@@ -299,7 +297,7 @@ export default function CareersPage() {
                   <Button
                     size="sm"
                     className="bg-primary hover:bg-primary/90"
-                    onClick={() => handleApplyNow("Senior Backend Engineer")}
+                    onClick={() => handleApplyNow("Backend Engineer")}
                   >
                     Apply Now
                   </Button>
@@ -310,10 +308,10 @@ export default function CareersPage() {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
-                  <CardTitle className="text-xl">Senior Frontend Engineer</CardTitle>
+                  <CardTitle className="text-xl">Frontend Engineer</CardTitle>
                   <Badge variant="secondary">Full-time</Badge>
                 </div>
-                <CardDescription>Create intuitive user interfaces for complex workflows</CardDescription>
+                <CardDescription>Create intuitive user interfaces and modern web experiences</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
@@ -321,51 +319,7 @@ export default function CareersPage() {
                   <Button
                     size="sm"
                     className="bg-primary hover:bg-primary/90"
-                    onClick={() => handleApplyNow("Senior Frontend Engineer")}
-                  >
-                    Apply Now
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex justify-between items-start mb-2">
-                  <CardTitle className="text-xl">Junior Backend Engineer</CardTitle>
-                  <Badge variant="secondary">Full-time</Badge>
-                </div>
-                <CardDescription>Learn and grow while building robust backend solutions</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Remote • Engineering</span>
-                  <Button
-                    size="sm"
-                    className="bg-primary hover:bg-primary/90"
-                    onClick={() => handleApplyNow("Junior Backend Engineer")}
-                  >
-                    Apply Now
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex justify-between items-start mb-2">
-                  <CardTitle className="text-xl">Junior Frontend Engineer</CardTitle>
-                  <Badge variant="secondary">Full-time</Badge>
-                </div>
-                <CardDescription>Develop your skills in modern frontend technologies</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Remote • Engineering</span>
-                  <Button
-                    size="sm"
-                    className="bg-primary hover:bg-primary/90"
-                    onClick={() => handleApplyNow("Junior Frontend Engineer")}
+                    onClick={() => handleApplyNow("Frontend Engineer")}
                   >
                     Apply Now
                   </Button>
