@@ -93,9 +93,11 @@ export default function CareersPage() {
     }
 
     // Submit to recruitment-management API
-    const RECRUITMENT_API_URL = "https://recruitment-management-ecru.vercel.app/api/applications"
+    const RECRUITMENT_API_URL = "https://recruitment-management-hsampm0v3-belli-ai.vercel.app/api/applications"
 
     try {
+      console.log("Submitting application with payload:", payload)
+      
       // Send form data to recruitment-management API
       const res = await fetch(RECRUITMENT_API_URL, {
         method: "POST",
@@ -105,13 +107,17 @@ export default function CareersPage() {
         body: JSON.stringify(payload),
       })
 
+      console.log("Response status:", res.status, res.statusText)
+
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`)
+        const errorText = await res.text()
+        console.error("API Error Response:", errorText)
+        throw new Error(`HTTP error! status: ${res.status} - ${errorText}`)
       }
 
       // Get response as JSON
       const json = await res.json()
-      console.log(json) // Log response for debugging
+      console.log("API Success Response:", json) // Log response for debugging
 
       // Check if response is successful
       const success = !!json?.success
